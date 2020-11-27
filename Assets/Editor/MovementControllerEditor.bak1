@@ -1,0 +1,84 @@
+﻿// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+// using UnityEditor; //All unity editor scripts need using UnityEditor, this means they CANNOT COMPILE. They must be placed in special Editor folder
+
+// //This script will be visible instead of the default editor script for the "target" MovementController
+// [CustomEditor(typeof(MovementController))]   //Define this script as an "Editor" script, which targets Movement Controller
+// public class MovementControllerEditor : Editor
+// { //Extends Editor required
+
+//     const bool simplerMethod = true;
+//     private SerializedObject movementCntrl;    //A serialized object
+//     private SerializedProperty movementSpeed;  //A serialized variable
+//     private MovementController mc;
+//     public void OnEnable()
+//     {
+//         mc = (MovementController) target;
+//         movementCntrl = new SerializedObject(target);          //target is MovementController
+//         movementSpeed = movementCntrl.FindProperty("speed");   //Use reflection to find a variable (property) in the target project
+//         Debug.Log("enable called");
+//     }
+
+//     private static string Ref_Array_Size_Path = "waypoints.Array.size";
+//     private static string Ref_Array_Data_Path = "waypoints.Array.data[{0}]";
+//     private Transform[] GetWaypointArray()
+//     {
+//         //Find property "waypoints.Array.size" which grabs the field named waypoints, then accesses it as an Array, and grabs the getter in it "Size"
+//         int arrayCount = movementCntrl.FindProperty(Ref_Array_Size_Path).intValue;
+//         Transform[] arr = new Transform[arrayCount];
+
+//         //We call  waypoints.Array.data[0], waypoints.Array.data[1]... to get the data, which is returned as an "object". (the base class of all things). Need to cast it to the correct type
+//         for (int i = 0; i < arrayCount; i++)
+//             arr[i] = movementCntrl.FindProperty(string.Format(Ref_Array_Data_Path, i)).objectReferenceValue as Transform;
+
+//         return arr;
+//     }
+
+//     public void SetWaypoint(int index, Transform waypoint)
+//     {
+//         movementCntrl.FindProperty(string.Format(Ref_Array_Data_Path, index)).objectReferenceValue = waypoint; //Find the array property and set it
+//     }
+
+//     public override void OnInspectorGUI() //Must be overwritten, this is called everytime the mouse moves over the inspector
+//     {
+//         if (simplerMethod)
+//         {
+//             GUILayout.Label("Movement Controller Params", EditorStyles.boldLabel);
+//             mc.drawSpeed = EditorGUILayout.ToggleLeft("My Bool", mc.drawSpeed);
+//             if (mc.drawSpeed)
+//             {
+//                 mc.speed = EditorGUILayout.FloatField("Speed: ", mc.speed);
+//             }
+//             for (int i = 0; i < mc.waypoints.Length; i++)
+//             {
+//                 mc.waypoints[i] = EditorGUILayout.ObjectField(mc.waypoints[i], typeof(Transform), true) as Transform;
+//             }
+//         }
+//         else
+//         {
+//             movementCntrl.Update();                                                //Stores relative variables from Unity Runtime into object
+
+//             GUILayout.Label("Movement Controller Params", EditorStyles.boldLabel); //Displays a label in editor with Bold Label 
+
+//             EditorGUILayout.PropertyField(movementSpeed);                          //Display the default format for a property field of type given
+//             if (movementSpeed.floatValue < 0)                                      //Is type SerializedProperty, which contains floatValue, intValue, ...
+//                 movementSpeed.floatValue = 0;                                      //Set the property if is negative
+
+//             GUILayout.Label("Waypoints", EditorStyles.boldLabel);
+//             Transform[] waypointsArr = GetWaypointArray();
+//             for (int i = 0; i < waypointsArr.Length; i++)
+//             {
+//                 Transform result = EditorGUILayout.ObjectField(waypointsArr[i], typeof(Transform), true) as Transform; //Make a field that can be set to any object, and returns the object in it
+
+//                 if (GUI.changed)                            //If any gui values have changed this update
+//                     SetWaypoint(i, result);                 //set the wp
+//             }
+
+//             movementCntrl.ApplyModifiedProperties();        //Save all changes, should usaully be placed last line at the end
+//         }
+
+
+//     }
+
+// }

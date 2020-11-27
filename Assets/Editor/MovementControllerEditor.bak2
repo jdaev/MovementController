@@ -1,0 +1,143 @@
+﻿// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+
+// using UnityEditor; //All unity editor scripts need using UnityEditor, this means they CANNOT COMPILE. They must be placed in special Editor folder
+
+// //This script will be visible instead of the default editor script for the "target" MovementController
+// [CustomEditor(typeof(MovementController))]   //Define this script as an "Editor" script, which targets Movement Controller
+// public class MovementControllerEditor : Editor
+// { //Extends Editor required
+//     private SerializedObject movementCntrl;    //A serialized object
+//     private SerializedProperty movementSpeed;  //A serialized variable
+//     private SerializedProperty wpArrayCount;  //A serialized variable
+
+//     public void OnEnable()
+//     {
+//         movementCntrl = new SerializedObject(target);          //target is MovementController
+//         movementSpeed = movementCntrl.FindProperty("speed");   //Use reflection to find a variable (property) in the target project
+//         wpArrayCount = movementCntrl.FindProperty(Ref_Array_Size_Path); //Get the array length
+//         Debug.Log("enable called");
+//     }
+
+//     private static string Ref_Array_Size_Path = "waypoints.Array.size";
+//     private static string Ref_Array_Data_Path = "waypoints.Array.data[{0}]";
+//     private Transform[] GetWaypointArray()
+//     {
+//         //Find property "waypoints.Array.size" which grabs the field named waypoints, then accesses it as an Array, and grabs the getter in it "Size"
+//         int arrayCount = wpArrayCount.intValue;    // movementCntrl.FindProperty(Ref_Array_Size_Path).intValue;  Now we use our own int to track it
+//         var arr = new Transform[arrayCount];
+
+//         //We call  waypoints.Array.data[0], waypoints.Array.data[1]... to get the data, which is returned as an "object". (the base class of all things). Need to cast it to the correct type
+//         for (int i = 0; i < arrayCount; i++)
+//             arr[i] = movementCntrl.FindProperty(string.Format(Ref_Array_Data_Path, i)).objectReferenceValue as Transform;
+
+//         return arr;
+//     }
+
+//     public Transform GetWaypointAt(int index)
+//     {
+//         return movementCntrl.FindProperty(string.Format(Ref_Array_Data_Path, index)).objectReferenceValue as Transform;
+//     }
+
+
+//     public void SetWaypoint(int index, Transform waypoint)
+//     {
+//         movementCntrl.FindProperty(string.Format(Ref_Array_Data_Path, index)).objectReferenceValue = waypoint; //Find the array property and set it
+//     }
+
+//     private void RemoveWaypointAtIndex(int index)
+//     {
+//         for (int i = index; i < wpArrayCount.intValue - 1; i++)                 //Starting at the index, move all of them down by one
+//             SetWaypoint(i, GetWaypointAt(i + 1));                               //Get the next waypoint and move it forward
+//         wpArrayCount.intValue -= 1;                                             //Decrease the count, which will remove the last one
+//     }
+
+//     private void Swap(int index1, int index2)
+//     {
+//         Transform t = GetWaypointAt(index1);
+//         SetWaypoint(index1, GetWaypointAt(index2));
+//         SetWaypoint(index2, t);
+//     }
+
+//     public override void OnInspectorGUI() //Must be overwritten, this is called everytime the mouse moves over the inspector
+//     {
+
+//         movementCntrl.Update();                                                //Stores relative variables from Unity Runtime into object
+
+//         GUILayout.Label("Movement Controller Params", EditorStyles.boldLabel); //Displays a label in editor with Bold Label 
+
+//         EditorGUILayout.PropertyField(movementSpeed);                          //Display the default format for a property field of type given
+//         if (movementSpeed.floatValue < 0)                                      //Is type SerializedProperty, which contains floatValue, intValue, ...
+//             movementSpeed.floatValue = 0;                                      //Set the property if is negative
+
+//         GUILayout.Label("Waypoints", EditorStyles.boldLabel);
+//         for (int i = 0; i < wpArrayCount.intValue; i++)
+//         {
+//             GUILayout.BeginHorizontal();                //Every GUI element created after this call will belong to the same horizontal line
+
+//             Transform result = EditorGUILayout.ObjectField(GetWaypointAt(i), typeof(Transform), true) as Transform; //Make a field that can be set to any object, and returns the object in it
+
+//             if (GUI.changed)                            //If any gui values have changed this update
+//                 SetWaypoint(i, result);                 //set the wp
+
+//             bool initialEnabledSetting = GUI.enabled;   //Save the current state of the UI, it could be already disabled
+
+//             GUI.enabled = (i > 0) && initialEnabledSetting;
+//             if (GUILayout.Button("^", GUILayout.Width(20f)))
+//                 Swap(i, i - 1);
+
+//             GUI.enabled = (i != wpArrayCount.intValue - 1) && initialEnabledSetting;
+//             if (GUILayout.Button("v", GUILayout.Width(20f)))
+//                 Swap(i, i + 1);
+
+//             GUI.enabled = initialEnabledSetting;      //Reset the state of the UI! if you leave it disabled, it will disable everything that follows
+
+//             if (GUILayout.Button("-", GUILayout.Width(20f)))  //A button of width 20
+//                 RemoveWaypointAtIndex(i);                     //Calls remove function on current for loop index (i)
+
+//             GUILayout.EndHorizontal();                  //Ends the horizontal line called earlier
+//         }
+
+//         if (GUILayout.Button("Add Waypoint"))            //On the frame this is pressed, returns true  (RepeatButton for hold down each frame)
+//         {
+//             wpArrayCount.intValue++;                    //Increase the count (It is just an int)
+//             SetWaypoint(wpArrayCount.intValue - 1, null); //Call set waypoint, setting the last new value to null
+//         }
+
+//         movementCntrl.ApplyModifiedProperties();        //Save all changes, should usaully be placed last line at the end
+//     }
+
+//     private void DropAreaGui()
+//     {
+//         Event evt = Event.current;
+//         Rect dropArea = GUILayoutUtility.GetRect(0f, 50f, GUILayout.ExpandWidth(true));
+//         GUI.Box(dropArea, "Add Waypoint");
+//         switch (evt.type)
+//         {
+//             case EventType.DragUpdated:
+//             case EventType.DragPerformed:
+//                 if (!dropArea.Contains(evt.mousePosition))
+//                     break;
+//                 DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+//                 if (evt.type == EventType.DragPerform)
+//                 {
+//                     DragAndDrop.AcceptDrag();
+//                     foreach (Object draggedObject in DragAndDrop.objects)
+//                     {
+//                         GameObject obj = (GameObject)draggedObject;
+//                         if (!obj)
+//                             continue;
+//                         Transform t = obj.transform;
+//                         if (!t) continue;
+//                         AddWaypoint(t);
+//                     }
+//                 }
+//                 Event.Current.Use();
+//                 break;
+//             default:
+//                 break;
+//         }
+//     }
+
+// }
