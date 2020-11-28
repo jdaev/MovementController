@@ -65,7 +65,6 @@ public class MovementControllerEditor : Editor
         {
             SetWaypoint(i, GetWaypointAt(i - 1));
         }
-        //WSetWaypoint(index + 1, GetWaypointAt(index));
     }
 
     private void Swap(int index1, int index2)

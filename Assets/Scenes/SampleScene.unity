@@ -645,12 +645,9 @@ MonoBehaviour:
   waypoints:
   - {fileID: 2085634996}
   - {fileID: 577665067}
-  - {fileID: 577665067}
   - {fileID: 91469616}
-  - {fileID: 91469616}
-  - {fileID: 0}
-  - {fileID: 91469616}
-  - {fileID: 0}
+  - {fileID: 1635158807}
+  - {fileID: 1871368680}
   speed: 3
   drawSpeed: 0
 --- !u!136 &1912086039
