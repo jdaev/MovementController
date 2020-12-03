@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Javed\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Javed\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_MovementController.1714682469.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Javed\Projects\MovementController" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Editor" t="Include">
+          <e p="ColorWindow.cs" t="Include" />
+          <e p="MovementControllerEditor.cs" t="Include" />
+          <e p="WaveManagerEditor.cs" t="Include" />
+        </e>
+        <e p="MovementController.cs" t="Include" />
+        <e p="Wave.cs" t="Include" />
+        <e p="WaveManager.cs" t="Include" />
+      </e>
+      <e p="MovementController.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
