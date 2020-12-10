@@ -19,15 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="766c71d3-2d7f-435f-8826-09f4b5a7ddcd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MovementController/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MovementController/.idea/contentModel.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MovementController/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MovementController/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MovementController/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MovementController/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MovementController/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MovementController/riderModule.iml" afterDir="false" />
+    <list default="true" id="766c71d3-2d7f-435f-8826-09f4b5a7ddcd" name="Default Changelist" comment="Reorderable List">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MovementController/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MovementController/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,8 +80,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607018727264</updated>
-      <workItem from="1607018738545" duration="276000" />
+      <workItem from="1607018738545" duration="1367000" />
     </task>
+    <task id="LOCAL-00001" summary="Reorderable List">
+      <created>1607019127057</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607019127057</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,5 +110,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Reorderable List" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reorderable List" />
   </component>
 </project>
